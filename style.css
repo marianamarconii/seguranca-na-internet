@@ -1,0 +1,421 @@
+ <style>
+        /* Variáveis de Cores Padrão (Tema Claro e Amigável) */
+        :root {
+            --cor-fundo: #09008a;
+            --cor-cartao: #4455b8;
+            --cor-principal: #d979ff;
+            --cor-principal-hover: #1565c0;
+            --cor-texto: #1a1a1a;
+            --cor-borda: #90a4ae;
+            --cor-verde-destaque: #1b5e20;
+            --cor-verde-fundo: #e8f5e9;
+            --cor-vermelho-destaque: #b71c1c;
+            --cor-vermelho-fundo: #ffebee;
+            --cor-amarelo-destaque: #f57f17;
+            --cor-amarelo-fundo: #fffde7;
+            --tamanho-fonte-base: 22px; /* Fonte inicial ampla para melhor leitura */
+            --anel-foco: 4px solid #ff9800;
+        }
+
+        /* Suporte nativo a rolagem suave em CSS */
+        html {
+            scroll-behavior: smooth;
+            font-size: var(--tamanho-fonte-base);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Open Sans', Arial, sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.7;
+            padding-bottom: 40px;
+        }
+
+        /* Foco Acessível Visível para navegação via teclado */
+        a:focus, button:focus, input:focus, label:focus, [tabindex="0"]:focus {
+            outline: var(--anel-foco) !important;
+            outline-offset: 4px;
+        }
+
+        /* --- IMPLEMENTAÇÃO DE ACESSIBILIDADE VIA CSS PURO --- */
+        /* Checkbox oculto para alternar Alto Contraste */
+        #alternador-contraste {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Estilos ativados ao marcar o Alto Contraste */
+        #alternador-contraste:checked ~ .envoltorio-aplicativo {
+            --cor-fundo: #000000;
+            --cor-cartao: #121212;
+            --cor-principal: #ffff00;
+            --cor-principal-hover: #ffd700;
+            --cor-texto: #ffffff;
+            --cor-borda: #ffffff;
+            --cor-verde-destaque: #00ff00;
+            --cor-verde-fundo: #003300;
+            --cor-vermelho-destaque: #ff3333;<!DOCTYPE html>
+                   #alternador-contraste:checked ~ .envoltorio-aplicativo .rotulo-botao-contraste {
+            background-color: #ffff00;
+            color: #000000;
+            font-weight: 800;
+        }
+
+        #alternador-contraste:checked ~ .envoltorio-aplicativo .cartao,
+        #alternador-contraste:checked ~ .envoltorio-aplicativo .banner-principal,
+        #alternador-contraste:checked ~ .envoltorio-aplicativo header,
+        #alternador-contraste:checked ~ .envoltorio-aplicativo .barra-acessibilidade {
+            border: 3px solid #ffffff;
+        }
+
+        #alternador-contraste:checked ~ .envoltorio-aplicativo .botao-principal {
+            background-color: #ffff00 !important;
+            color: #000000 !important;
+            border-color: #ffffff !important;
+        }
+
+        /* Checkbox para aumentar tamanho de texto global */
+        #alternador-tamanho-fonte {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #alternador-tamanho-fonte:checked ~ .envoltorio-aplicativo {
+            font-size: 26px; /* Fonte ampliada */
+        }
+
+        /* Barra de Acessibilidade Fixa no Topo */
+        .barra-acessibilidade {
+            background-color: #1a237e;
+            color: #ffffff;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .ferramentas-acessibilidade {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .rotulo-botao-ferramenta {
+            background-color: #ffffff;
+            color: #1a237e;
+            border: 2px solid #ffffff;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 48px; /* Altura ideal de toque para acessibilidade móvel */
+            user-select: none;
+        }
+
+        .rotulo-botao-ferramenta:hover {
+            background-color: #e8eaf6;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: var(--cor-principal);
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--cor-borda);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .recipiente-principal {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* INÍCIO: Banner Principal */
+        .banner-principal {
+            background-color: var(--cor-cartao);
+            border: 3px solid var(--cor-principal);
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+        }
+
+        .banner-principal h2 {
+            color: var(--cor-principal);
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .banner-principal p {
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+        }
+
+        /* Botão de Ajuda Funcional (CSS Link Interno) */
+        .botao-principal {
+            background-color: var(--cor-vermelho-destaque);
+            color: #ffffff;
+            font-size: 1.25rem;
+            font-weight: 800;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border: 3px solid var(--cor-vermelho-destaque);
+            box-shadow: 0 4px 10px rgba(183, 28, 28, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+            min-height: 60px;
+        }
+
+        .botao-principal:hover {
+            background-color: #9a0007;
+            transform: translateY(-2px);
+        }
+
+        /* Estilos dos Cartões de Conteúdo */
+        .cartao {
+            background-color: var(--cor-cartao);
+            border: 2px solid var(--cor-borda);
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .cabecalho-cartao {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--cor-borda);
+            padding-bottom: 12px;
+        }
+
+        .cabecalho-cartao i {
+            font-size: 2.2rem;
+            color: var(--cor-principal);
+        }
+
+        .titulo-cartao {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        /* DICAS IMPORTANTES: Grade com 3 Dicas */
+        .grade-dicas {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .cartao-dica {
+            background-color: var(--cor-cartao);
+            border: 2px solid var(--cor-borda);
+            border-left: 8px solid var(--cor-principal);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+        }
+
+        .numero-dica {
+            background-color: var(--cor-principal);
+            color: #ffffff;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .conteudo-dica h3 {
+            font-size: 1.25rem;
+            margin-bottom: 6px;
+        }
+
+        .conteudo-dica p {
+            font-size: 1.05rem;
+        }
+
+        /* DIREITOS NA INTERNET */
+        .caixa-direitos {
+            background-color: var(--cor-verde-fundo);
+            border-left: 8px solid var(--cor-verde-destaque);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .lista-direitos {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .lista-direitos li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--cor-borda);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 1.1rem;
+        }
+
+        .lista-direitos li:last-child {
+            border-bottom: none;
+        }
+
+        .lista-direitos i {
+            color: var(--cor-verde-destaque);
+            font-size: 1.4rem;
+            margin-top: 3px;
+        }
+
+        /* COMO SABER SE ESTOU CAINDO EM UM GOLPE? */
+        .caixa-alerta {
+            background-color: var(--cor-vermelho-fundo);
+            border-left: 8px solid var(--cor-vermelho-destaque);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .lista-suspeitas {
+            list-style: none;
+            padding: 0;
+        }
+
+        .item-suspeito {
+            background-color: var(--cor-cartao);
+            border: 2px solid var(--cor-borda);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .item-suspeito i {
+            color: var(--cor-vermelho-destaque);
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .item-suspeito h3 {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        /* SEÇÃO DE AJUDA & TELEFONES */
+        .grade-telefones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .cartao-telefone {
+            background-color: var(--cor-cartao);
+            border: 2px solid var(--cor-borda);
+            padding: 20px;
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .cartao-telefone h3 {
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+
+        .numero-telefone {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--cor-vermelho-destaque);
+            margin: 12px 0 0 0;
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: var(--cor-vermelho-fundo);
+            border-radius: 10px;
+            border: 2px solid var(--cor-vermelho-destaque);
+            width: 100%;
+        }
+
+        rodape {
+            text-align: center;
+            padding: 25px 20px;
+            background-color: var(--cor-cartao);
+            border-top: 2px solid var(--cor-borda);
+            margin-top: 40px;
+            font-size: 1rem;
+            display: block;
+        }
+
+        /* Ajustes de Responsividade para Telas Menores */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.6rem;
+            }
+
+            .banner-principal h2 {
+                font-size: 1.5rem;
+            }
+
+            .botao-principal {
+                width: 100%;
+                font-size: 1.1rem;
+            }
+
+            .barra-acessibilidade {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .ferramentas-acessibilidade {
+                justify-content: space-between;
+            }
+
+            .rotulo-botao-ferramenta {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+    </style>
